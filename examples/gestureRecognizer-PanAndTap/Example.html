@@ -11,5 +11,16 @@
 <body>
     <div id="reactContainer"></div>
     <script src="example.js" ></script>
+    <div style="position:absolute;right:0;top:0;width:300px;height:100%;background-color: rgba(205,201,201, 0.33);padding:10px;">
+        <h1>Example Details</h1>
+        <p>This example has three seperate gesture recognizers:</p>
+        <ul>
+            <li>Pan Gesture - Click/Tap and drag the yellow square around</li>
+            <li>Tap Gesture (1 tap) - Tap once and only once to toggle the squares size from little to normal.  </li>
+            <li>Tap Gesture (4 taps) - Tap four time (only four times) and toggle the size from large to normal. </li>
+        </ul>
+
+        <p>Tap Gesture (1 tap) requires Tap Gesture (4 taps) to fail.</p>
+    </div>
 </body>
 </html>
