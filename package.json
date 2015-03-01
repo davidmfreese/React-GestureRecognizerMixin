@@ -1,0 +1,45 @@
+{
+  "name": "React-GestureRecognizer",
+  "version": "0.0.1",
+  "description": "GestureRecognizer and React Mixin inspired by UIGestureRecognizer",
+  "main": "index.js",
+  "keywords": [
+    "React",
+    "UIGestureRecognizer",
+    "React Mixin"
+  ],
+  "author": "David M Freese <davidmfreese@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/davidmfreese/React-GestureRecognizerMixin.git"
+  },
+  "scripts": {
+    "browserify-standalone": "browserify index.js --debug --standalone ReactGestureRecognizer | exorcist dist/react-gesturerecognizer-standalone.js.map > dist/react-gesturerecognizer-standalone.js",
+    "build": "npm run browserify-standalone",
+    "test": "mocha ./test/ --recursive"
+  },
+  "dependencies": {
+    "react": "^0.12.2",
+    "tcomb": "~1.0.0",
+    "tcomb-react": "^0.2.0",
+    "tcomb-validation": "^0.3.0",
+    "underscore": "^1.8.1",
+    "js-coregraphics": "git://github.com/davidmfreese/JSCoreGraphics.git"
+  },
+  "devDependencies": {
+    "browserify": "~6.0.3",
+    "exorcist": "^0.1.6",
+    "jsdom": "^3.1.1",
+    "mocha": "^2.1.0",
+    "nodemon": "^1.2.1",
+    "react-tools": "^0.12.2",
+    "reactify": "~0.14.0",
+    "watchify": "~2.0.0"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  }
+}
