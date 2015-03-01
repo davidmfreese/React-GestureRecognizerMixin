@@ -23,22 +23,11 @@ var DragAndTappable = React.createClass({
         var tapGesture = TapGestureRecognizer();
         tapGesture.addTargetForCallback(this.getDOMNode(), this.handleTapGesture);
         this.gestureRecognizers.push(tapGesture);
-        //Uncomment to see gesture debug info
-        //tapGesture.logDebugInfo(true);
-        //
-        //var doubleTapGesture = TapGestureRecognizer();
-        //doubleTapGesture.addTargetForCallback(this.getDOMNode(), this.handleTapGesture);
-        //doubleTapGesture.setNumberTapsRequired(2);
-        //this.gestureRecognizers.push(doubleTapGesture);
-        ////Uncomment to see gesture debug info
-        ////doubleTapGesture.logDebugInfo(true);
 
         var quadrupleTapGesture = TapGestureRecognizer();
         quadrupleTapGesture.addTargetForCallback(this.getDOMNode(), this.handleTapGesture);
         quadrupleTapGesture.setNumberTapsRequired(4);
         this.gestureRecognizers.push(quadrupleTapGesture);
-        //Uncomment to see gesture debug info
-        //quadrupleTapGesture.logDebugInfo(true);
 
         //When conflicting Gestures exist you can require that another fails prior
         tapGesture.setRequiresGestureRecognizerToFail(quadrupleTapGesture);
@@ -46,12 +35,13 @@ var DragAndTappable = React.createClass({
         var panGesture = PanGestureRecognizer();
         panGesture.addTargetForCallback(this.getDOMNode(), this.handlePanGesture);
         this.gestureRecognizers.push(panGesture);
-        //Uncomment to see gesture debug info
-        //panGesture.logDebugInfo(true);
-
 
         this.shouldHandleTouchGestures = true;
         this.shouldHandleMouseGestures = true;
+
+        tapGesture.logDebugInfo(true); //comment to hide gesture debug info
+        quadrupleTapGesture.logDebugInfo(true); //comment to hide gesture debug info
+        panGesture.logDebugInfo(true);  //comment to hide gesture debug info
     },
     render: function() {
         var dragAndTapStyle = {
@@ -63,7 +53,7 @@ var DragAndTappable = React.createClass({
             left: this.state.left
         };
 
-        if(this.state.isExpanded) {
+        if(this.state.isExpanded && !this.state.isDoubleExpanded) {
             dragAndTapStyle.height = 150;
             dragAndTapStyle.width = 150;
         } else if (this.state.isDoubleExpanded) {
@@ -110,15 +100,15 @@ var DragAndTappable = React.createClass({
         var state = gestureRecognizer.getState();
         if(state == "Ended") {
             var isExpanded = gestureRecognizer.getNumberOfTaps() == 1;
-            var isDoubleExpanded = !isExpanded;//gestureRecognizer.getNumberOfTaps() == 2;
+            var isDoubleExpanded = gestureRecognizer.getNumberOfTaps() == 4;
             if(isExpanded) {
                 this.setState({
                     isExpanded: !this.state.isExpanded,
-                    isDoubleExpanded: false
+                    isDoubleExpanded: this.state.isDoubleExpanded
                 });
             } else if (isDoubleExpanded) {
                 this.setState({
-                    isExpanded: false,
+                    isExpanded: this.state.isExpanded,
                     isDoubleExpanded: !this.state.isDoubleExpanded
                 });
             } else {

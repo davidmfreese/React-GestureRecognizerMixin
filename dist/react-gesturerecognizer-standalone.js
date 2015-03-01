@@ -4420,7 +4420,7 @@ function TapGestureRecognizerFactory() {
     var TapGestureRecognizer = {
         setNumberTapsRequired: function(numTapsRequired) {
             _numTapsRequired = numTapsRequired;
-            logTapGestureContext = 'TapGesture (' + _numTapsRequired + ' Taps) - ';
+            logGestureContext = 'TapGesture (' + _numTapsRequired + ' Taps) - ';
             logGestureInfo("setNumberTapsRequired: " + _numTapsRequired);
         },
         getNumberOfTaps: function() {
@@ -4440,50 +4440,68 @@ function TapGestureRecognizerFactory() {
 
             if(_setTimeoutForTouchesBeganId && _state == "Began") { //When this happens we had correct number of touches but got one extra
                 _state = "Failed";
+                logGestureInfo("Touches Began - Too many taps. Number of taps required: " + _numTapsRequired + ", state: " + _state);
                 clearTimeout(_setTimeoutForTouchesBeganId);
                 _setTimeoutForTouchesBeganId = null;
                 this.stateFailedOrEnded();
                 return;
             }
 
-            var totalTouches = this.getNumberOfTouches();
-            if(_setTimeoutForTouchesBeganId) {
+            if(_setTimeoutForTouchesBeganId) { //We were waiting for another touch and we got it
                 clearTimeout(_setTimeoutForTouchesBeganId);
                 _setTimeoutForTouchesBeganId = null;
             }
 
+            var totalTouches = this.getNumberOfTouches();
             if(totalTouches != _numberOfTouchesRequired) {
                 _state = "Failed";
+                logGestureInfo("Touches Began - Number of touches invalid. Number of Touches required: " + _numberOfTouchesRequired + ", actual: " + totalTouches + ", state: " + _state);
             }
-            else if(touches && touches.length == _numberOfTouchesRequired) {
+            else {
                 _numberOfTaps++;
                 if (_numberOfTaps <= _numTapsRequired) {
                     _state = "Possible";
-                    logGestureInfo("state: " + _state);
+                    logGestureInfo("Touches Began - state: " + _state);
                     var that = this;
                     _setTimeoutForTouchesBeganId = setTimeout(function(){
                         _state = "Failed";
-                        logGestureInfo("state: " + _state);
+                        logGestureInfo("Touches Began - Touch Lasted Too Long. state: " + _state);
                         that.stateFailedOrEnded();
                     }, MAX_TAP_DURATION)
                 }
-                else {
-                    if(_setTimeoutForTouchesBeganId) {
-                        clearTimeout(_setTimeoutForTouchesBeganId);
-                        _setTimeoutForTouchesBeganId = null;
-                    }
+                else if (_numberOfTaps > _numTapsRequired) {
                     _state = "Failed";
-                    logGestureInfo("state: " + _state);
+                    logGestureInfo("Touches Began - Too many taps: " + _state);
                 }
-            } else {
-                _state = "Failed";
-                logGestureInfo("state: " + _state);
             }
 
-            //See above.  For now only
-            //if(this.callback) {
-            //    this.callback(this);
-            //}
+            if(!this.isActive()) {
+                this.stateFailedOrEnded();
+            }
+        },
+        touchesMoved: function(touches) {
+            if(this.isActive()) {
+                var totalTouches = this.getNumberOfTouches();
+                if(totalTouches != _numberOfTouchesRequired) {
+                    _state = "Failed";
+                    logGestureInfo("Touches Moved - Invalid Number of Touches. State: " + _state);
+                }
+                else {
+                    var touchesValid = true;
+                    for(var i = 0; i < touches.length; i++) {
+                        if(!isTouchValid(touches[i])) {
+                            touchesValid = false;
+                            _state = "Failed";
+                            logGestureInfo("Touches Moved - Invalid Touch. State: " + _state);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if(_state == "Failed") {
+                this.stateFailedOrEnded();
+            }
         },
         touchesEnded: function(touches) {
             if(_setTimeoutForTouchesBeganId) {
@@ -4499,8 +4517,6 @@ function TapGestureRecognizerFactory() {
             for(var i = 0; i < touches.length; i++) {
                 if(!isTouchValid(touches[i])) {
                     touchesValid = false;
-                    _state = "Failed";
-                    logGestureInfo("Touches Ended - Invalid Touch, state: " + _state);
                     break;
                 }
             }
@@ -4514,14 +4530,11 @@ function TapGestureRecognizerFactory() {
 
             if(!touchesValid) {
                 _state = "Failed";
+                logGestureInfo("Touches Ended - Invalid Touche(s). State: " + _state);
             }
             else if(_numberOfTaps == _numTapsRequired && otherRecognizerFailed) {
                 _state = "Began";
-                logGestureInfo("Touches Ended - Valid Number of Taps... Need to make sure another tap doesn't come, state: " + _state);
-                if(_setTimeoutForTouchesBeganId) {
-                    clearTimeout(_setTimeoutForTouchesBeganId);
-                    _setTimeoutForTouchesBeganId = null;
-                }
+                logGestureInfo("Touches Ended - Valid Number of Taps... Make sure another tap doesn't come, State: " + _state);
                 if(_setTimeoutForTouchesEndedId) {
                     clearTimeout(_setTimeoutForTouchesEndedId);
                     _setTimeoutForTouchesEndedId = null;
@@ -4533,8 +4546,10 @@ function TapGestureRecognizerFactory() {
                     if(_state == 'Began') {
                         _state = 'Ended';
                         if(that.callback && _state == "Ended") {
+                            logGestureInfo("Touches Ended - RECOGNIZED");
                             that.callback(that);
                         }
+                        that.stateFailedOrEnded();
                     }
                 }, MAX_TIME_BETWEEN_TAPS)
 
@@ -4550,34 +4565,36 @@ function TapGestureRecognizerFactory() {
                         var otherState = that.requiredGestureRecognizerToFail.getState();
                         otherRecognizerFailed = otherState == "Failed" || otherState == "None";
 
-                        if (otherRecognizerFailed) {
-                            logGestureInfo("Touches Ended - Other GestureRecognizer failed in time: " + otherState);
+                        if(_numberOfTaps != _numTapsRequired) {
+                            logGestureInfo("Touches Ended - Other GestureRecognizer failed in time but too many taps. Needed: " + _numTapsRequired + ", Had: " + _numberOfTaps + ", State: " + _state);
+                        }
+                        else if (otherRecognizerFailed) {
+                            logGestureInfo("Touches Ended - Other GestureRecognizer failed in time. Other Recognizer State:  " + otherState);
                             _state = "Ended";
                         }
                         else {
-                            logGestureInfo("Touches Ended - Other GestureRecognizer didn't fail in time: " + otherState);
+                            logGestureInfo("Touches Ended - Other GestureRecognizer didn't fail in time. Other Recognizer State: " + otherState);
                             _state = "Failed";
                         }
 
                         if(that.callback && _state == "Ended") {
                             that.callback(that);
                         }
-
                         that.stateFailedOrEnded();
-                    }, MAX_TIME_BETWEEN_TAPS);
+                    }, MAX_TIME_BETWEEN_TAPS + 50);
                 }
             }
             else if(_numberOfTaps < _numTapsRequired) {
                 _state = "Possible";
-                logGestureInfo("Touches Ended - Not enough taps.  Needed: " + _numTapsRequired);
+                logGestureInfo("Touches Ended - Not enough taps Yet. Need: " + _numTapsRequired + ", Have: " + _numberOfTaps + ", State: " + _state);
                 var that = this;
                 _setTimeoutForTouchesBeganId = setTimeout(function() {
-                    logGestureInfo("Touches Ended - Didn't get enough taps.  Needed: " + _numTapsRequired + ", Had: " + _numberOfTaps);
                     if(_state == "Possible") {
                         _state = "Failed"; //Held touch too long
-                        that.stateFailedOrEnded();
                     }
-                }, MAX_TAP_DURATION);
+                    logGestureInfo("Touches Ended - Didn't get enough taps.  Needed: " + _numTapsRequired + ", Had: " + _numberOfTaps + ", State: " + _state);
+                    that.stateFailedOrEnded();
+                }, MAX_TIME_BETWEEN_TAPS);
 
             }
             else {
@@ -4585,9 +4602,10 @@ function TapGestureRecognizerFactory() {
             }
 
             if(this.callback && _state == "Ended") {
+                logGestureInfo("Touches Ended - RECOGNIZED");
                 this.callback(this);
             }
-            if(_state == "Possible") {
+            if(!this.isActive()) {
                 this.stateFailedOrEnded();
             }
         },
