@@ -1,7 +1,7 @@
 # React-GestureRecognizerMixin
-[React-GestureRecognizerMixin](https://github.com/davidmfreese/React-GestureRecognizerMixin) brings UIGestureRecognizer to the web and React.  React Mixin that lets you do simple gesture recognization easily (Pan and Tap recognizers exist) or create your own custom recognizers.
-
-A [PanGestureRecognizer](https://github.com/davidmfreese/React-GestureRecognizerMixin/blob/master/src/GestureRecognizer/Recognizers/PanGestureRecognizer.js) and a [TapGestureRecognizer](https://github.com/davidmfreese/React-GestureRecognizerMixin/blob/master/src/GestureRecognizer/Recognizers/TapGestureRecognizer.js) have been implemented.  The core React component is [GestureRecognizerMixin](https://github.com/davidmfreese/React-GestureRecognizerMixin/blob/master/src/GestureRecognizer/GestureRecognizerMixin.js).
+[React-GestureRecognizerMixin](http://github.com/davidmfreese/React-GestureRecognizerMixin) brings UIGestureRecognizer to React Components.  [PanGestureRecognizer](http://github.com/davidmfreese/React-GestureRecognizerMixin/blob/master/src/GestureRecognizer/Recognizers/PanGestureRecognizer.js),  [TapGestureRecognizer](http://github.com/davidmfreese/React-GestureRecognizerMixin/blob/master/src/GestureRecognizer/Recognizers/TapGestureRecognizer.js) and  [GestureRecognizerMixin](http://github.com/davidmfreese/React-GestureRecognizerMixin/blob/master/src/GestureRecognizer/GestureRecognizerMixin.js) have been implemented.
+  
+See the [examples](http://github.com/davidmfreese/React-GestureRecognizerMixin/tree/master/examples) folder and code to learn more for now.  More concrete documentation will come after this project has matured. 
 
 #### Examples:
 * [Multi-Gesture Recongization](http://rawgit.com/davidmfreese/React-GestureRecognizerMixin/master/examples/gestureRecognizer-PanAndTap/Example.html)
