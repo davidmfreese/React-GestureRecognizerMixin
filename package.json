@@ -21,8 +21,7 @@
   },
   "dependencies": {
     "tcomb": "~1.0.0",
-    "tcomb-react": "^0.2.0",
-    "tcomb-validation": "^0.3.0",
+    "tcomb-validation": "~1.0.0",
     "underscore": "^1.8.1",
     "js-coregraphics": "git://github.com/davidmfreese/JSCoreGraphics.git"
   },
@@ -32,8 +31,6 @@
     "jsdom": "^3.1.1",
     "mocha": "^2.1.0",
     "nodemon": "^1.2.1",
-    "react-tools": "~0.12.2",
-    "reactify": "~1.0.0",
     "watchify": "~2.0.0"
   }
 }

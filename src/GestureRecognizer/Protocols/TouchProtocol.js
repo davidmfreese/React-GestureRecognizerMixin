@@ -1,4 +1,4 @@
-var t = require('tcomb');
+var t = require('tcomb-validation');
 var Models = require('JSCoreGraphics').CoreGraphics.Geometry.DataTypes;
 
 var magnitude = function(x, y) {
