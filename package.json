@@ -11,8 +11,8 @@
   "author": "David M Freese <davidmfreese@gmail.com>",
   "license": "MIT",
   "repository": {
-    "type" : "git",
-    "url" : "http://github.com/davidmfreese/React-GestureRecognizerMixin.git"
+    "type": "git",
+    "url": "http://github.com/davidmfreese/React-GestureRecognizerMixin.git"
   },
   "scripts": {
     "browserify-standalone": "browserify index.js --debug --standalone ReactGestureRecognizer | exorcist dist/react-gesturerecognizer-standalone.js.map > dist/react-gesturerecognizer-standalone.js",
@@ -32,5 +32,13 @@
     "mocha": "^2.1.0",
     "nodemon": "^1.2.1",
     "watchify": "~2.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/davidmfreese/React-GestureRecognizerMixin/issues"
+  },
+  "homepage": "https://github.com/davidmfreese/React-GestureRecognizerMixin",
+  "directories": {
+    "example": "examples",
+    "test": "test"
   }
 }
