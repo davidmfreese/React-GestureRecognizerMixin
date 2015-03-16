@@ -1,4 +1,4 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.ReactGestureRecognizer=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ReactGestureRecognizer = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 var exports = {
     Delegates: {
         GestureRecognizerDelegate: require('./src/GestureRecognizer/Delegates/GestureRecognizerDelegate')
@@ -21,64 +21,192 @@ var exports = {
 module.exports = exports;
 
 
-},{"./src/GestureRecognizer/Delegates/GestureRecognizerDelegate":17,"./src/GestureRecognizer/Enums/GestureRecognizerEnums":18,"./src/GestureRecognizer/GestureRecognizerBase":19,"./src/GestureRecognizer/GestureRecognizerMixin":20,"./src/GestureRecognizer/Protocols/GestureRecognizerProtocol":21,"./src/GestureRecognizer/Protocols/TouchProtocol":22,"./src/GestureRecognizer/Recognizers/PanGestureRecognizer":23,"./src/GestureRecognizer/Recognizers/TapGestureRecognizer":24,"./src/GestureRecognizer/Touch":25,"JSCoreGraphics":2}],2:[function(require,module,exports){
+},{"./src/GestureRecognizer/Delegates/GestureRecognizerDelegate":20,"./src/GestureRecognizer/Enums/GestureRecognizerEnums":21,"./src/GestureRecognizer/GestureRecognizerBase":22,"./src/GestureRecognizer/GestureRecognizerMixin":23,"./src/GestureRecognizer/Protocols/GestureRecognizerProtocol":24,"./src/GestureRecognizer/Protocols/TouchProtocol":25,"./src/GestureRecognizer/Recognizers/PanGestureRecognizer":26,"./src/GestureRecognizer/Recognizers/TapGestureRecognizer":27,"./src/GestureRecognizer/Touch":28,"JSCoreGraphics":2}],2:[function(require,module,exports){
 var CoreGraphics = {};
 var Foundation = {};
-var Kit = require('./src/Kit/Kit');
+var Animations = {};
+var Kit = require("./src/Kit/Kit");
 
-CoreGraphics.Geometry = require('./src/CoreGraphics/Geometry/Geometry');
+Animations.CAAnimation = require("./src/Animations/CAAnimation");
+Animations.AnimationEasingType = require("./src/Animations/AnimationEasingType");
+
+CoreGraphics.Geometry = require("./src/CoreGraphics/Geometry/Geometry");
 CoreGraphics.Geometry.DataTypes = {
-    Point: require('./src/CoreGraphics/Geometry/DataTypes/Point'),
-    Size: require('./src/CoreGraphics/Geometry/DataTypes/Size'),
-    Rect: require('./src/CoreGraphics/Geometry/DataTypes/Rect'),
-    Vector: require('./src/CoreGraphics/Geometry/DataTypes/Vector')
+    Point: require("./src/CoreGraphics/Geometry/DataTypes/Point"),
+    Size: require("./src/CoreGraphics/Geometry/DataTypes/Size"),
+    Rect: require("./src/CoreGraphics/Geometry/DataTypes/Rect"),
+    Vector: require("./src/CoreGraphics/Geometry/DataTypes/Vector")
 };
-CoreGraphics.Geometry.Constants = require('./src/CoreGraphics/Geometry/GeometryConstants');
+CoreGraphics.Geometry.Constants = require("./src/CoreGraphics/Geometry/GeometryConstants");
 
 Foundation.DataTypes = {
-    IndexPath: require('./src/Foundation/DataTypes/IndexPath')
+    IndexPath: require("./src/Foundation/DataTypes/IndexPath")
 };
 
 Kit.DataTypes = {
-    IndexPath: require('./src/Kit/DataTypes/EdgeInsets')
+    EdgeInsets: require("./src/Kit/DataTypes/EdgeInsets")
 };
 Kit.KitConstants = {
-    IndexPath: require('./src/Kit/KitConstants')
+    IndexPath: require("./src/Kit/KitConstants")
+};
+Kit.Views = {
+    View: require("./src/Kit/Views/View")
 };
 
 module.exports = {
+    Animations: Animations,
     CoreGraphics: CoreGraphics,
     Foundation: Foundation,
     Kit: Kit
 };
-},{"./src/CoreGraphics/Geometry/DataTypes/Point":3,"./src/CoreGraphics/Geometry/DataTypes/Rect":4,"./src/CoreGraphics/Geometry/DataTypes/Size":5,"./src/CoreGraphics/Geometry/DataTypes/Vector":6,"./src/CoreGraphics/Geometry/Geometry":7,"./src/CoreGraphics/Geometry/GeometryConstants":8,"./src/Foundation/DataTypes/IndexPath":9,"./src/Kit/DataTypes/EdgeInsets":10,"./src/Kit/Kit":11,"./src/Kit/KitConstants":12}],3:[function(require,module,exports){
-var t = require('tcomb-validation');
+},{"./src/Animations/AnimationEasingType":3,"./src/Animations/CAAnimation":4,"./src/CoreGraphics/Geometry/DataTypes/Point":5,"./src/CoreGraphics/Geometry/DataTypes/Rect":6,"./src/CoreGraphics/Geometry/DataTypes/Size":7,"./src/CoreGraphics/Geometry/DataTypes/Vector":8,"./src/CoreGraphics/Geometry/Geometry":9,"./src/CoreGraphics/Geometry/GeometryConstants":10,"./src/Foundation/DataTypes/IndexPath":11,"./src/Kit/DataTypes/EdgeInsets":12,"./src/Kit/Kit":13,"./src/Kit/KitConstants":14,"./src/Kit/Views/View":15}],3:[function(require,module,exports){
+var AnimationEasingType = {
+    AnimationEaseLinear: 1,
+    AnimationEaseOutQuad: 2,
+    AnimationEastInOutCubic: 3
+};
+
+module.exports = AnimationEasingType;
+
+},{}],4:[function(require,module,exports){
+var AnimationEasingType = require("./AnimationEasingType");
+
+var global = typeof window === "undefined" ? {} : window;
+
+//TODO: better RAF implementation
+var _requestAnimationFrame = function(win, t) {
+    return  win["r" + t] ||
+    win["webkitR" + t] ||
+    win["mozR" + t] ||
+    win["msR" + t] ||
+    function(fn) { return setTimeout(fn, 60) }
+}(global, "equestAnimationFrame");
+
+var _cancelAnimationFrame = function(win, t) {
+    return win["c" + t] ||
+    win["webkitC" + t] ||
+    win["mozC" + t] ||
+    win["msC" + t] ||
+    undefined;
+}(global, "ancelAnimationFrame");
+
+if(!_cancelAnimationFrame) {
+    var _cancelAnimationFrame = function(win, t) {
+        return win["c" + t] ||
+        win["webkitC" + t] ||
+        win["mozC" + t] ||
+        win["msC" + t] ||
+        function(id) { clearTimeout(id); };
+    }(global, "ancelRequestAnimationFrame");
+}
+
+if (!Date.now) {
+    Date.now = function now() {
+        return new Date().getTime();
+    };
+}
+
+function getRate(t) {
+    return 1 - t;
+}
+
+function easelinear(t) { return t }
+
+function easeOutQuad(t) { return t*(2-t) }
+
+function easeInOutCubic(t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 }
+
+//taken from http://www.sitepoint.com/simple-animations-using-requestanimationframe/
+function Animate(duration, animationEasingType, stepFunction, success) {
+    var rafId = -1;
+    this.cancelAnimation = function() {
+        if(rafId) {
+            _cancelAnimationFrame(rafId);
+            rafId = undefined;
+        }
+        success("cancelled");
+
+    };
+    this.finishAnimation = function() {
+        if(rafId) {
+            _cancelAnimationFrame(rafId);
+            rafId = undefined;
+        }
+        stepFunction(1);
+        success("success");
+
+    };
+
+    var end = Date.now() + duration;
+    var step = function() {
+        var current = Date.now();
+        var remaining = end - current;
+        var tScaled = remaining/duration;
+
+        if(rafId === undefined) {
+            return;
+        }
+        else if(remaining < 16) {
+            stepFunction(1);
+            success("success");
+            return;
+        }
+        else {
+            var rate = 0;
+            var t = 0;
+            if(!animationEasingType || animationEasingType === AnimationEasingType.AnimationEaseLinear) {
+                var t = easelinear(tScaled);
+                rate = getRate(t);
+            } else if(animationEasingType === AnimationEasingType.AnimationEaseOutQuad) {
+                var t = easeOutQuad(tScaled);
+                rate = getRate(t);
+            } else if(animationEasingType === AnimationEasingType.AnimationEastInOutCubic) {
+                var t = easeInOutCubic(tScaled);
+                rate = getRate(t);
+            }
+            stepFunction(rate);
+        }
+
+        rafId = _requestAnimationFrame(step);
+    };
+    step();
+
+    return this;
+}
+
+module.exports = Animate;
+
+
+
+
+},{"./AnimationEasingType":3}],5:[function(require,module,exports){
+var t = require("tcomb-validation");
 
 var Point = t.struct({
     x: t.Num,
     y: t.Num
-}, 'Point');
+}, "Point");
 
 module.exports = Point;
-},{"tcomb-validation":13}],4:[function(require,module,exports){
-var t = require('tcomb-validation');
-var Size = require('./Size');
-var Point = require('./Point');
+},{"tcomb-validation":16}],6:[function(require,module,exports){
+var t = require("tcomb-validation");
+var Size = require("./Size");
+var Point = require("./Point");
 
 var Rect = t.struct({
     origin: Point,
     size: Size
-}, 'Frame');
+}, "Frame");
 
 module.exports = Rect;
 
-},{"./Point":3,"./Size":5,"tcomb-validation":13}],5:[function(require,module,exports){
-var t = require('tcomb-validation');
+},{"./Point":5,"./Size":7,"tcomb-validation":16}],7:[function(require,module,exports){
+var t = require("tcomb-validation");
 
 var Size = t.struct({
     height: t.Num,
     width: t.Num
-}, 'Size', true);
+}, "Size", true);
 
 //var SizeFuncs = t.struct({
 //    isSizeZero: t.func(Size, t.Bool)
@@ -92,23 +220,23 @@ var Size = t.struct({
 
 module.exports = Size;
 
-},{"tcomb-validation":13}],6:[function(require,module,exports){
-var t = require('tcomb-validation');
+},{"tcomb-validation":16}],8:[function(require,module,exports){
+var t = require("tcomb-validation");
 
 var Vector = t.struct({
     dx: t.Num,
     dy: t.Num
-}, 'Vector');
+}, "Vector");
 
 module.exports = Vector;
-},{"tcomb-validation":13}],7:[function(require,module,exports){
-var tcombValidate = require('tcomb-validation');
+},{"tcomb-validation":16}],9:[function(require,module,exports){
+var t = require("tcomb-validation");
 
-var Point = require('./DataTypes/Point');
-var Size = require('./DataTypes/Size');
-var Rect = require('./DataTypes/Rect');
-var Vector = require('./DataTypes/Vector');
-var Constants = require('./GeometryConstants');
+var Point = require("./DataTypes/Point");
+var Size = require("./DataTypes/Size");
+var Rect = require("./DataTypes/Rect");
+var Vector = require("./DataTypes/Vector");
+var Constants = require("./GeometryConstants");
 
 var Geometry = {};
 
@@ -145,7 +273,7 @@ Geometry.sizeEqualToSize = function(size1, size2) {
 };
 Geometry.rectEqualToRect = function(rect1, rect2) {
     if(this.shouldValidate) { Rect.is(rect1); Rect.is(rect1); }
-    return this.pointEqualToPoint(rect1.origin, rect2.orgin) && this.sizeEqualToSize(rect1.size, rect2.size);
+    return this.pointEqualToPoint(rect1.origin, rect2.origin) && this.sizeEqualToSize(rect1.size, rect2.size);
 };
 
 Geometry.rectGetMinX = function(rect) {
@@ -184,11 +312,6 @@ Geometry.rectContainsPoint = function(rect, point) {
 };
 Geometry.rectContainsRect = function(rect, possibleInnerRect) {
     if(this.shouldValidate) { Rect.is(rect); Rect.is(possibleInnerRect); }
-    var minX = this.rectGetMinX(possibleInnerRect);
-    var maxX = this.rectGetMaxX(possibleInnerRect);
-    var minY = this.rectGetMinY(possibleInnerRect);
-    var maxY = this.rectGetMaxY(possibleInnerRect);
-
     var upperLeftPoint = possibleInnerRect.origin;
     var lowerLeftPoint = new Point({
         x: this.rectGetMaxX(possibleInnerRect),
@@ -201,11 +324,11 @@ Geometry.rectContainsRect = function(rect, possibleInnerRect) {
 Geometry.isPointZero = function(point) {
     if(this.shouldValidate) { Point.is(point); }
     return this.pointEqualToPoint(point, Constants.pointZero);
-}
+};
 Geometry.isSizeZero = function(size) {
     if(this.shouldValidate) { Size.is(size); }
     return this.sizeEqualToSize(size, Constants.sizeZero);
-}
+};
 Geometry.isRectZero = function(rect) {
     if(this.shouldValidate) { Rect.is(rect); }
     return this.rectEqualToRect(rect, Constants.rectZero);
@@ -225,10 +348,10 @@ Geometry.rectIntersectsRect = function(rect1, rect2) {
 };
 
 module.exports = Geometry;
-},{"./DataTypes/Point":3,"./DataTypes/Rect":4,"./DataTypes/Size":5,"./DataTypes/Vector":6,"./GeometryConstants":8,"tcomb-validation":13}],8:[function(require,module,exports){
-var Point = require('./DataTypes/Point');
-var Size = require('./DataTypes/Size');
-var Rect = require('./DataTypes/Rect');
+},{"./DataTypes/Point":5,"./DataTypes/Rect":6,"./DataTypes/Size":7,"./DataTypes/Vector":8,"./GeometryConstants":10,"tcomb-validation":16}],10:[function(require,module,exports){
+var Point = require("./DataTypes/Point");
+var Size = require("./DataTypes/Size");
+var Rect = require("./DataTypes/Rect");
 
 var POINT_ZERO = new Point({x: 0, y: 0});
 var SIZE_ZERO = new Size({height:0, width:0});
@@ -246,33 +369,33 @@ GeometryConstants.sizeZero = SIZE_ZERO;
 GeometryConstants.rectZero = RECT_ZERO;
 
 module.exports = GeometryConstants;
-},{"./DataTypes/Point":3,"./DataTypes/Rect":4,"./DataTypes/Size":5}],9:[function(require,module,exports){
-var t = require('tcomb-validation');
+},{"./DataTypes/Point":5,"./DataTypes/Rect":6,"./DataTypes/Size":7}],11:[function(require,module,exports){
+var t = require("tcomb-validation");
 
 var IndexPath = t.struct({
     row: t.Num,
     section: t.maybe(t.Num)
-}, 'IndexPath');
+}, "IndexPath");
 
 module.exports = IndexPath;
 
 
-},{"tcomb-validation":13}],10:[function(require,module,exports){
-var t = require('tcomb-validation');
+},{"tcomb-validation":16}],12:[function(require,module,exports){
+var t = require("tcomb-validation");
 
 var EdgeInsets = t.struct({
-    "top": t.Num,
-    "left": t.Num,
-    "bottom": t.Num,
-    "right": t.Num
-}, 'EdgeInsets');
+    top: t.Num,
+    left: t.Num,
+    bottom: t.Num,
+    right: t.Num
+}, "EdgeInsets");
 
 module.exports = EdgeInsets;
 
 
-},{"tcomb-validation":13}],11:[function(require,module,exports){
-var EdgeInsets = require('./DataTypes/EdgeInsets');
-var Constants = require('./KitConstants');
+},{"tcomb-validation":16}],13:[function(require,module,exports){
+var EdgeInsets = require("./DataTypes/EdgeInsets");
+var Constants = require("./KitConstants");
 var Kit = {};
 
 Kit.edgeInsetsZero = Constants.INSETS_ZERO;
@@ -287,8 +410,8 @@ Kit.edgeInsetsMake = function(left, top, right, bottom) {
 };
 
 module.exports = Kit;
-},{"./DataTypes/EdgeInsets":10,"./KitConstants":12}],12:[function(require,module,exports){
-var EdgeInsets = require('./DataTypes/EdgeInsets');
+},{"./DataTypes/EdgeInsets":12,"./KitConstants":14}],14:[function(require,module,exports){
+var EdgeInsets = require("./DataTypes/EdgeInsets");
 
 var INSETS_ZERO = new EdgeInsets({top: 0, bottom: 0, left: 0, right: 0});
 
@@ -298,7 +421,132 @@ KitConstants.INSETS_ZERO = INSETS_ZERO;
 module.exports = KitConstants;
 
 
-},{"./DataTypes/EdgeInsets":10}],13:[function(require,module,exports){
+},{"./DataTypes/EdgeInsets":12}],15:[function(require,module,exports){
+var t = require("tcomb-validation");
+
+var Rect = require("../../CoreGraphics/Geometry/DataTypes/Rect");
+var Point = require("../../CoreGraphics/Geometry/DataTypes/Point");
+var CAAnimation = require("../../Animations/CAAnimation");
+var AnimationEasingType = require("../../Animations/AnimationEasingType");
+
+var AnimatableStyleProps = {
+    top: 1,
+    left: 2,
+    bottom: 3,
+    right: 4,
+    opacity: 5
+};
+
+function AnimatableProp(propertyName, startValue, endValue, appendValue, duration) {
+    this.propertyName = propertyName;
+    this.startValue = startValue;
+    this.endValue = endValue;
+    this.duration = duration;
+    this.currentValue = startValue;
+    this.appendValue = appendValue;
+}
+
+var View = t.struct({
+    frame: Rect,
+    alpha: t.Num,
+    scrollPosition: Point,
+    domElement: t.Obj //no way to check this is really a dom element?
+}, "View");
+
+View.prototype.animateWithDurationAndOptions = function(duration, delay, animationEasingType, animations, completion) {
+    var easingType = AnimationEasingType.AnimationEaseLinear;
+    for(var animationEasingTypeKey in AnimationEasingType) {
+        var value = AnimationEasingType[animationEasingTypeKey];
+        if(animationEasingType === value ) {
+            easingType = value;
+        }
+    }
+    if (animationEasingType && AnimationEasingType[animationEasingType] > 0) {
+        easingType = AnimationEasingType[animationEasingType];
+    }
+
+    var animatableProps = [];
+    if (animations["frame"] != null) {
+        if (animations["frame"].origin.x != this.frame.origin.x) {
+            animatableProps.push(new AnimatableProp("left", this.frame.origin.x, animations["frame"].origin.x, "px", duration));
+        }
+        if (animations["frame"].origin.y != this.frame.origin.y) {
+            animatableProps.push(new AnimatableProp("top", this.frame.origin.y, animations["frame"].origin.y, "px", duration));
+        }
+
+        if (animations["frame"].size.width != this.frame.size.width) {
+            animatableProps.push(new AnimatableProp("right", this.frame.origin.x + this.frame.size.width, animations["frame"].origin.x + animations["frame"].size.width, "px", duration));
+        }
+        if (animations["frame"].size.height != this.frame.size.height) {
+            animatableProps.push(new AnimatableProp("bottom", this.frame.origin.y + this.frame.size.height, animations["frame"].origin.y + animations["frame"].size.height, "px", duration));
+        }
+    }
+
+    if (animations["alpha"] != null) {
+        if (animations["alpha"] != this.alpha) {
+            animatableProps.push(new AnimatableProp("opacity", this.alpha, animations["alpha"], "", duration));
+        }
+    }
+
+    if (animations["scrollPosition"] != null) {
+        var newScrollPosition = animations["scrollPosition"];
+        if (newScrollPosition != null && newScrollPosition.x != this.scrollPosition.x) {
+            animatableProps.push(new AnimatableProp("scrollLeft", this.scrollLeft, newScrollPosition.x, duration));
+        }
+
+        if (newScrollPosition != null && newScrollPosition.y != this.scrollPosition.y) {
+            animatableProps.push(new AnimatableProp("scrollTop", this.scrollPosition.y, newScrollPosition.y, duration));
+        }
+    }
+
+    var that = this;
+    setTimeout(function () {
+        var stepFunctions = [];
+        for (var i = 0; i < animatableProps.length; i++) {
+            var stepFunction = (function(animatable) {
+                return function (rate) {
+                    if(AnimatableStyleProps[animatable.propertyName] > 0) {
+                        that.domElement.style[animatable.propertyName] = animatable.startValue - rate * (animatable.startValue - animatable.endValue) + animatable.appendValue;
+                    }
+                    else {
+                        that.domElement[animatable.propertyName] = animatable.startValue - rate * (animatable.startValue - animatable.endValue) + animatable.appendValue;
+                    }
+                }
+            })(animatableProps[i]);
+
+            stepFunctions.push(stepFunction);
+        }
+
+        var combinedStepFunction = function (rate) {
+            for (var i = 0; i < stepFunctions.length; i++) {
+                stepFunctions[i](rate);
+            }
+        };
+
+        that.currentAnimation = new CAAnimation(duration, easingType, combinedStepFunction,
+            function(success) {
+                that.currentAnimation = undefined;
+                completion(success);
+            }
+        );
+    }, delay);
+};
+
+View.prototype.cancelCurrentAnimation = function() {
+    if(this.currentAnimation != null) {
+        this.currentAnimation.cancelAnimation();
+    }
+};
+
+View.prototype.finishCurrentAnimation = function() {
+    if(this.currentAnimation != null) {
+        this.currentAnimation.finishAnimation();
+    }
+};
+
+module.exports = View;
+
+},{"../../Animations/AnimationEasingType":3,"../../Animations/CAAnimation":4,"../../CoreGraphics/Geometry/DataTypes/Point":5,"../../CoreGraphics/Geometry/DataTypes/Rect":6,"tcomb-validation":16}],16:[function(require,module,exports){
 (function (root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
@@ -517,7 +765,7 @@ module.exports = KitConstants;
 
 }));
 
-},{"tcomb":14}],14:[function(require,module,exports){
+},{"tcomb":17}],17:[function(require,module,exports){
 (function (root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
@@ -1446,7 +1694,7 @@ module.exports = KitConstants;
   };
 }));
 
-},{}],15:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 (function (root, factory) {
   'use strict';
   if (typeof define === 'function' && define.amd) {
@@ -2168,7 +2416,7 @@ module.exports = KitConstants;
 
 }));
 
-},{}],16:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 //     Underscore.js 1.8.2
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -3706,7 +3954,7 @@ module.exports = KitConstants;
   }
 }.call(this));
 
-},{}],17:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 var t = require('tcomb-validation');
 
 var GestureRecognizerProtocol = require('../Protocols/GestureRecognizerProtocol');
@@ -3720,7 +3968,7 @@ var GestureRecognizerDelegate = t.struct({
 }, 'GestureRecognizerDelegate');
 
 module.exports = GestureRecognizerDelegate;
-},{"../Protocols/GestureRecognizerProtocol":21,"tcomb-validation":13}],18:[function(require,module,exports){
+},{"../Protocols/GestureRecognizerProtocol":24,"tcomb-validation":16}],21:[function(require,module,exports){
 var t = require('tcomb');
 
 var GestureRecognizerState = t.enums.of("None Possible Began Changed Ended Cancelled Failed ");
@@ -3730,7 +3978,7 @@ module.exports.GestureRecognizerState = GestureRecognizerState;
 
 
 
-},{"tcomb":15}],19:[function(require,module,exports){
+},{"tcomb":18}],22:[function(require,module,exports){
 var t = require('tcomb-validation');
 var _ = require('underscore');
 
@@ -3878,7 +4126,7 @@ module.exports = GestureRecognizerBaseFactory;
 
 
 
-},{"./Delegates/GestureRecognizerDelegate":17,"./Protocols/GestureRecognizerProtocol":21,"tcomb-validation":13,"underscore":16}],20:[function(require,module,exports){
+},{"./Delegates/GestureRecognizerDelegate":20,"./Protocols/GestureRecognizerProtocol":24,"tcomb-validation":16,"underscore":19}],23:[function(require,module,exports){
 var _ = require('underscore');
 
 var Models = require('JSCoreGraphics').CoreGraphics.Geometry.DataTypes;
@@ -4128,7 +4376,7 @@ var ReactGestureRecognizerMixin = {
 };
 
 module.exports = ReactGestureRecognizerMixin;
-},{"./Touch":25,"JSCoreGraphics":2,"underscore":16}],21:[function(require,module,exports){
+},{"./Touch":28,"JSCoreGraphics":2,"underscore":19}],24:[function(require,module,exports){
 var t = require('tcomb-validation');
 
 var Geometry = require('JSCoreGraphics').CoreGraphics.Geometry;
@@ -4171,7 +4419,7 @@ module.exports= GestureRecognizerProtocol;
 
 
 
-},{"../Enums/GestureRecognizerEnums":18,"./TouchProtocol":22,"JSCoreGraphics":2,"tcomb-validation":13}],22:[function(require,module,exports){
+},{"../Enums/GestureRecognizerEnums":21,"./TouchProtocol":25,"JSCoreGraphics":2,"tcomb-validation":16}],25:[function(require,module,exports){
 var t = require('tcomb');
 var Models = require('JSCoreGraphics').CoreGraphics.Geometry.DataTypes;
 
@@ -4265,7 +4513,7 @@ TouchProtocol.prototype.getMaxTranslation = function() {
 
 module.exports = TouchProtocol;
 
-},{"JSCoreGraphics":2,"tcomb":15}],23:[function(require,module,exports){
+},{"JSCoreGraphics":2,"tcomb":18}],26:[function(require,module,exports){
 var t = require('tcomb-validation');
 var _ = require('underscore');
 
@@ -4363,7 +4611,7 @@ function PanGestureRecognizerFactory() {
 
 module.exports = PanGestureRecognizerFactory;
 
-},{"../GestureRecognizerBase":19,"../Protocols/GestureRecognizerProtocol":21,"tcomb-validation":13,"underscore":16}],24:[function(require,module,exports){
+},{"../GestureRecognizerBase":22,"../Protocols/GestureRecognizerProtocol":24,"tcomb-validation":16,"underscore":19}],27:[function(require,module,exports){
 var t = require('tcomb-validation');
 var _ = require('underscore');
 
@@ -4620,7 +4868,7 @@ function TapGestureRecognizerFactory() {
 
 module.exports = TapGestureRecognizerFactory;
 
-},{"../GestureRecognizerBase":19,"../Protocols/GestureRecognizerProtocol":21,"tcomb-validation":13,"underscore":16}],25:[function(require,module,exports){
+},{"../GestureRecognizerBase":22,"../Protocols/GestureRecognizerProtocol":24,"tcomb-validation":16,"underscore":19}],28:[function(require,module,exports){
 var TouchProtocol = require('./Protocols/TouchProtocol');
 
 function touchFactory(identifier, touchLocation, target) {
@@ -4643,7 +4891,7 @@ function touchFactory(identifier, touchLocation, target) {
 }
 module.exports = touchFactory;
 
-},{"./Protocols/TouchProtocol":22}]},{},[1])(1)
+},{"./Protocols/TouchProtocol":25}]},{},[1])(1)
 });
 
 

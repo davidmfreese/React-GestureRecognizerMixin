@@ -20,7 +20,6 @@
     "test": "mocha ./test/ --recursive"
   },
   "dependencies": {
-    "react": "~0.12.2",
     "tcomb": "~1.0.0",
     "tcomb-react": "^0.2.0",
     "tcomb-validation": "^0.3.0",
@@ -36,10 +35,5 @@
     "react-tools": "~0.12.2",
     "reactify": "~1.0.0",
     "watchify": "~2.0.0"
-  },
-  "browserify": {
-    "transform": [
-      "reactify"
-    ]
   }
 }
