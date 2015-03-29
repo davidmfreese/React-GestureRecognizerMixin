@@ -2,7 +2,7 @@ var gestureRecognizer = ReactGestureRecognizer;
 
 var PanGestureRecognizer = gestureRecognizer.Recognizers.PanGestureRecognizer;
 var TapGestureRecognizer = gestureRecognizer.Recognizers.TapGestureRecognizer;
-var GestureRecognizerMixin = gestureRecognizer.GestureRecognizerMixin;
+var GestureRecognizerMixin = new gestureRecognizer.GestureRecognizerMixin();
 var GeometryModels = gestureRecognizer.JSCoreGraphics.CoreGraphics.Geometry.DataTypes;
 
 var DragAndTappable = React.createClass({
